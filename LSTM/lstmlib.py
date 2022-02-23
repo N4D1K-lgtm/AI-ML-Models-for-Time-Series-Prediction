@@ -57,8 +57,6 @@ class WindowGenerator():
             [labels[:, :, self.column_indices[name]] for name in self.label_columns],
             axis=-1)
 
-        # Slicing doesn't preserve static shape information, so set the shapes
-        # manually. This way the `tf.data.Datasets` are easier to inspect.
         inputs.set_shape([None, self.input_width, None])
         labels.set_shape([None, self.label_width, None])
 
