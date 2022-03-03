@@ -9,10 +9,10 @@ def generate_mlstmfcn(max_timesteps, max_features, classes, cells=8):
     ip = Input(shape=(max_timesteps, max_features))
 
     x = Masking()(ip)
-    x = LSTM(8)(x)
-    x = Dropout(0.8)(x)
+    x = LSTM(cells)(x)
+    x = Dropout(0.3)(x)
 
-    y = Permute((2, 1))(ip)
+    # y = Permute((2, 1))(ip)
     y = Conv1D(128, 8, padding='same', kernel_initializer='he_uniform')(ip)
     y = BatchNormalization()(y)
     y = Activation('relu')(y)

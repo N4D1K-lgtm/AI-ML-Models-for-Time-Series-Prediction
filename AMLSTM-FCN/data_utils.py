@@ -1,5 +1,7 @@
 import pandas as pd
 import os
+from collections import deque
+import numpy as np
 
 def get_vol(prices, span=100, hours=1):
     delta=pd.Timedelta(hours=hours)
@@ -93,3 +95,20 @@ def label_series(df, span=50, hours=1, minutes=15):
     labels = touches.label
     
     return labels
+
+def window_generator(df, timesteps, labels, batch_size):
+    return
+
+def verify_labels(dataset, true_labels, batch_size):
+    total = 0
+    i = 0
+    for batch in dataset:
+        inputs, targets = batch
+        if not (targets[:].shape == true_labels[total : total + batch_size].shape):
+            print(f"Unequal Shapes at Index {i} (If the index is large then it is the remainder of the set after batch processing)")
+            print("Target Shape: {a} vs. Label Sequence Slice Shape: {b}".format(a=targets[:].shape, b=true_labels[total : total + batch_size].shape))
+            break
+        assert np.array_equal(targets[:], true_labels[total : total + batch_size])
+        i = i + 1
+        total = total + batch_size
+    return
